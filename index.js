@@ -26,7 +26,7 @@ const gameBoard = function () {
 
   const isAvailable = function (index) {
     if (gameBoardArr[index] === null) return true;
-    
+
     return false;
   }
 
@@ -176,11 +176,11 @@ const game = function () {
   function playRound() {
     for (let i = 0; i < 9; i++) {
       let index = Number(prompt(activePlayer.getName() + " Enter your index"));
-        while(gameBoardObj.isAvailable(index)=== false ||
-      index > 8) {
-           index = Number(prompt(activePlayer.getName() + " Enter different index"));
-        }
-       
+      while (gameBoardObj.isAvailable(index) === false ||
+        index > 8) {
+        index = Number(prompt(activePlayer.getName() + " Enter different index"));
+      }
+
       gameBoardObj.chooseSquare(activePlayer.getSymbol(), index);
       console.log(activePlayer.getName() + " Choose: " + activePlayer.getSymbol
         + " at index Number: " + index);
@@ -204,3 +204,53 @@ const game = function () {
 
 
 // game();
+
+
+/* Dialog Control and create new users */
+const dialogElem = document.getElementById("dialog");
+const showDialog = document.querySelector(".show");
+const formSubmit = document.querySelector("#confirm-btn");
+const cancelProcess = document.querySelector("#cancel");
+const form = document.getElementById("add-new-users-form");
+
+showDialog.addEventListener("click", () => {
+  dialogElem.showModal();
+  window.scrollTo(0, 0);
+  form.reset();
+});
+
+
+formSubmit.addEventListener("click", (e) => {
+  e.preventDefault();
+
+  const username_1 = document.getElementById('username-1').value;
+  const playerName_1 = document.getElementById('player-1-img').value;
+  const symbol_1 = "x";
+
+  const username_2 = document.getElementById('username-2').value;
+  const playerName_2 = document.getElementById('player-2-img').value;
+  const symbol_2 = "x";
+
+  // Create Players obj
+
+  window.scrollTo(0, 0);
+  dialogElem.close();
+})
+
+//change Enter key on Keyboard behavior 
+const formInputs = document.querySelectorAll("#add-new-users-form input");
+
+formInputs.forEach((input, index) => {
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+
+      let next = formInputs[index + 1];
+      if (next) {
+        next.focus();
+      } else {
+       form.submit();
+      }
+    }
+  });
+});

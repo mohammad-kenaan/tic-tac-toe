@@ -1,0 +1,199 @@
+:root {
+  font-size: 16px;
+}
+
+body {
+  padding: 1rem;
+  max-width: 1024px;
+  margin: 0 auto;
+}
+
+header {}
+
+header .container {
+  display: flex;
+  justify-content: space-around;
+  gap: 20px;
+}
+
+.player {
+  display: flex;
+  gap: 30px;
+}
+
+.player picture {
+  max-width: 200px;
+  min-width: 111px;
+}
+
+.player picture .name {
+  font-size: 1.5rem;
+  padding-top: 1em;
+  text-align: center;
+  font-weight: bold;
+  color: #7b6e51;
+}
+
+.score {
+  display: flex;
+  align-items: center;
+  font-size: 10rem;
+  color: #CA3B80;
+}
+
+
+menu {}
+
+menu .container {
+  margin: 30px auto 50px;
+  background-image: url("../assets/images/game-board-400*400.webp");
+  background-repeat: no-repeat;
+  background-position: top center;
+  display: grid;
+  grid-template-columns: repeat(3, 120px);
+  grid-template-rows: repeat(3, 126px);
+  gap: 5px;
+  justify-content: center;
+}
+
+menu .game-control {
+  text-align: center;
+  margin-top: 50px;
+}
+
+menu .game-control button {
+  font-size: 1.6rem;
+  margin: 0 10px 20px 10px;
+  padding: 0.7em 1.5em;
+  background-color: rgb(103, 172, 103);
+  color: white;
+  border-radius: 5px;
+  width: 200px;
+
+  &:hover {
+    box-shadow: 3px 5px 5px #EAD092;
+  }
+}
+
+menu .game-control .end-game {
+  background-color: #ab8a07;
+
+}
+
+
+/* Dialog style start */
+
+dialog[open] {
+  opacity: 1;
+  transform: scaleY(1);
+}
+
+dialog {
+  opacity: 0;
+  transform: scaleY(0);
+  transition:
+    opacity 0.7s ease-out,
+    transform 0.7s ease-out,
+    overlay 0.7s ease-out allow-discrete,
+    display 0.7s ease-out allow-discrete;
+}
+
+@starting-style {
+  dialog:open {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+}
+
+dialog::backdrop {
+  background-image: linear-gradient(45deg,
+      magenta,
+      rebeccapurple,
+      dodgerblue,
+      green);
+  opacity: 0.75;
+  background-color: rgb(0 0 0 / 0%);
+  transition:
+    display 0.7s allow-discrete,
+    overlay 0.7s allow-discrete,
+    background-color 0.7s;
+}
+
+dialog:open::backdrop {
+  background-color: rgb(0 0 0 / 25%);
+}
+
+
+@starting-style {
+  dialog:open::backdrop {
+    background-color: rgb(0 0 0 / 0%);
+  }
+}
+
+/*     dialog style end */
+
+
+/* ------Form in Dialog Style start------ */
+
+dialog form {
+  padding: 25px;
+  max-width: 750px;
+}
+
+dialog form fieldset {
+  margin-bottom: 20px;
+  padding: 20px 50px;
+  border: 1px solid gray;
+  text-align: start;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+dialog form fieldset input {
+  border-bottom: 1px solid gray;
+  border-bottom-style: dashed;
+  padding-left: 10px;
+}
+
+dialog form fieldset p {
+  margin-top: 40px;
+}
+
+dialog form fieldset picture {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  
+}
+
+dialog form fieldset picture img {
+  width: 80px;
+}
+
+dialog fieldset .options{
+  display: flex;
+  gap: 30px;
+  padding-left: 50px;
+
+}
+
+dialog form .dialog-confirm {
+
+  button {
+    padding: 0.5em 3em;
+    background-color: #008000;
+    color: white;
+    border-radius: 15px;
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+
+  #cancel {
+    background-color: #c52d07;
+    margin: 30px;
+  }
+}
+
+/* ----Form in Dialog Style end------ */
