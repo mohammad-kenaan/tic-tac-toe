@@ -16,68 +16,62 @@
     <dic class="container">
       <div class="player x">
         <picture>
-          <img src="./assets/images/morgan200*200.webp" alt="">
-          <p class="name">Mohamad</p>
+          <img src="./assets/images/morgan.webp" alt="" id="player-x-img">
+          <p class="first-username name">Mohamad</p>
         </picture>
       </div>
 
-      <div class="score" id="player-x">
-        <p><span>0</span></p>
+      <div class="score">
+        <p><span id="player-x">0</span></p>
       </div>
 
-      <div class="score" id="player-o">
-        <p><span>0</span></p>
+      <div class="score">
+        <p><span id="player-o">0</span></p>
       </div>
 
       <div class="player o">
         <picture>
-          <img src="./assets/images/alex200*200.webp" alt="">
-          <p class="name">Eyad</p>
+          <img src="./assets/images/alex.webp" alt="" id="player-o-img">
+          <p class="second-username name">Eyad</p>
         </picture>
       </div>
     </dic>
-
-
   </header>
 
   <menu>
-    <div class="container">
-      <div class="item0">
+    <div class="container" id="game-board">
+      <div class="item" data-id="0">
         <img src="" alt="">
       </div>
-      <div class="item1">
+      <div class="item" data-id="1" id="">
         <img src="" alt="">
       </div>
-      <div class="item2">
+      <div class="item" data-id="2">
         <img src="" alt="">
       </div>
-      <div class="item3">
+      <div class="item" data-id="3">
         <img src="" alt="">
       </div>
-      <div class="item4">
+      <div class="item" data-id="4">
         <img src="" alt="">
       </div>
-      <div class="item5">
+      <div class="item" data-id="5">
         <img src="" alt="">
       </div>
-      <div class="item6">
+      <div class="item" data-id="6">
         <img src="" alt="">
       </div>
-      <div class="item7">
+      <div class="item" data-id="7">
         <img src="" alt="">
       </div>
-      <div class="item8">
+      <div class="item" data-id="8">
         <img src="" alt="">
       </div>
     </div>
 
     <div class="game-control">
 
-      <!-- Dialog Start -->
-
-
-      <div>
-
+      <div class="dialog-form">
         <button class="show start-game">Start</button>
 
         <dialog id="dialog" autofocus>
@@ -86,25 +80,23 @@
 
             <fieldset>
               <legend>Enter First player information</legend>
-              <label for="username">1- Username-1: </label>
-              <input type="text" name="username-1" id="username-1" 
-              enterkeyhint="next" placeholder="Moe">
+              <label for="username-1">1- Username-1: </label>
+              <input type="text" name="username-1" id="username-1" enterkeyhint="next" placeholder="Moe">
               <p>2- Write your player's name</p>
-              <input type="text" name="player-1-img" id="player-1-img"
-               enterkeyhint="next" placeholder="alex" >
+              <input type="text" name="player-1-img" id="player-1-img" enterkeyhint="next" placeholder="alex">
 
               <picture>
                 <div class="alex">
-                  <img src="./assets/images/alex200*200.webp" alt="">
-                  <label for="">alex</label>
+                  <img src="./assets/images/alex.webp" alt="">
+                  <p>alex</p>
                 </div>
                 <div class="morgan">
-                  <img src="./assets/images/morgan200*200.webp" alt="">
-                  <label for="">morgan</label>
+                  <img src="./assets/images/morgan.webp" alt="">
+                  <p>morgan</p>
                 </div>
                 <div class="tegan">
-                  <img src="./assets/images/tegan200*200.webp" alt="">
-                  <label for="">tegan</label>
+                  <img src="./assets/images/tegan.webp" alt="">
+                  <p>tegan</p>
                 </div>
 
               </picture>
@@ -112,8 +104,7 @@
               <p>3- Select your Symbol</p>
               <div class="options">
                 <label for="user-symbol-x">X</label>
-                <input type="radio" name="user-symbol" id="user-symbol-x" 
-                checked value="x">
+                <input type="radio" name="user-symbol" id="user-symbol-x" checked value="x">
                 <label for="user-symbol-o">O</label>
                 <input type="radio" name="user-symbol" id="user-symbol-o" value="o">
               </div>
@@ -123,48 +114,44 @@
 
             <fieldset>
               <legend>Enter Second player information</legend>
-              <label for="username">1- Username-2: </label>
-              <input type="text" name="username-2" id="username-2"
-               enterkeyhint="next" placeholder="Moe" >
+              <label for="username-2">1- Username-2: </label>
+              <input type="text" name="username-2" id="username-2" enterkeyhint="next" placeholder="Moe">
 
               <p>2- Write your player's name</p>
-              <input type="text" name="player-2-img" id="player-2-img" 
-              enterkeyhint="next" placeholder="alex" >
+              <input type="text" name="player-2-img" id="player-2-img" enterkeyhint="next" placeholder="alex">
 
               <picture>
                 <div class="alex">
-                  <img src="./assets/images/alex200*200.webp" alt="">
-                  <label for="">alex</label>
+                  <img src="./assets/images/alex.webp" alt="">
+                  <p>alex</p>
                 </div>
                 <div class="morgan">
-                  <img src="./assets/images/morgan200*200.webp" alt="">
-                  <label for="">morgan</label>
+                  <img src="./assets/images/morgan.webp" alt="">
+                  <p>morgan</p>
                 </div>
                 <div class="tegan">
-                  <img src="./assets/images/tegan200*200.webp" alt="">
-                  <label for="">tegan</label>
+                  <img src="./assets/images/tegan.webp" alt="">
+                  <p>tegan</p>
                 </div>
 
               </picture>
 
             </fieldset>
 
-
             <div class="dialog-confirm">
               <button id="cancel" formmethod="dialog">Cancel</button>
               <button formmethod="dialog" id="confirm-btn" type="button">Confirm</button>
             </div>
           </form>
+
         </dialog>
 
       </div>
 
-      <!-- Dialog End  -->
-
-
-
-      <button class="end-game">New game</button>
-
+      <div class="round-control">
+        <button class="next-round" id="next-round">Next Round</button>
+        <button class="new-game" id="new-game">New game</button>
+      </div>
     </div>
 
   </menu>

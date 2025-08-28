@@ -1,13 +1,25 @@
+const gameBoardInDom = document.querySelector("#game-board");
+const nextRoundBtn = document.querySelector(".next-round");
+const newGameBtn = document.querySelector(".new-game");
+const cells = document.querySelectorAll(".item");
+const playerXScore = document.querySelector("#player-x");
+const playerOScore = document.querySelector("#player-o");
+const playerXImg = document.querySelector("#player-x-img");
+const playerOiImg = document.querySelector("#player-o-img");
+const firstUserName = document.querySelector(".first-username");
+const secondUserName = document.querySelector(".second-username");
 
 
-const player = function (name, symbol) {
+const player = function (name, symbol, playerImg) {
   let score = 0;
   const getName = () => name;
   const getSymbol = () => symbol;
+  const getPlayerImg = () => playerImg;
   const increaseScore = () => score++;
   const getScore = () => score;
+  const resetScore = () => score = 0;
 
-  return { getName, getSymbol, increaseScore, getScore }
+  return { getName, getSymbol, getPlayerImg, increaseScore, getScore, resetScore }
 }
 
 const gameBoard = function () {
@@ -150,107 +162,155 @@ const gameBoard = function () {
     }
   }
 
-  const reset = function () {
+  const nextRound = function () {
     gameBoardArr.fill(null);
+    cells.forEach(cell => {
+      cell.style.backgroundImage = "";
+    });
+
   }
 
+  const gameStop = function () {
+    gameBoardArr.fill(9);
+  }
 
-  return { chooseSquare, getGameBoarderArr, checkWin, isAvailable, reset }
+  const isFull = function () {
+    gameBoardArr.forEach((ele) => {
+      if (ele === null) return false;
+      return true;
+    })
+  }
+
+  return {
+    chooseSquare, getGameBoarderArr, checkWin, isAvailable, nextRound,
+    gameStop, isFull
+  }
 }
 
-const game = function () {
+const game = function (playerX, playerO) {
   let gameBoardObj;
-  const playerX = player("MHD", "X");
-  const playerO = player("Eyad", "O");
   let activePlayer = playerX;
+  playerXImg.src = `./assets/images/${playerX.getPlayerImg()}.webp`;
+  playerOiImg.src = `./assets/images/${playerO.getPlayerImg()}.webp`;
+  firstUserName.textContent = playerX.getName() + ":  " + playerX.getSymbol().toUpperCase();
+  secondUserName.textContent = playerO.getName()+ ":  " + playerO.getSymbol().toUpperCase();
   gameBoardObj = gameBoard();
-
   playRound();
+
+  nextRoundBtn.addEventListener("click", () => {
+    gameBoardObj.nextRound();
+  })
+
+  newGameBtn.addEventListener("click", () => {
+    reset();
+  })
 
 
   function switchUser() {
     activePlayer = activePlayer === playerX ? playerO : playerX;
   }
 
-
   function playRound() {
-    for (let i = 0; i < 9; i++) {
-      let index = Number(prompt(activePlayer.getName() + " Enter your index"));
-      while (gameBoardObj.isAvailable(index) === false ||
-        index > 8) {
-        index = Number(prompt(activePlayer.getName() + " Enter different index"));
-      }
 
-      gameBoardObj.chooseSquare(activePlayer.getSymbol(), index);
-      console.log(activePlayer.getName() + " Choose: " + activePlayer.getSymbol
-        + " at index Number: " + index);
-      // Start check if we have a winner
-      if (i > 4 && gameBoardObj.checkWin(gameBoardObj.getGameBoarderArr(),
-        activePlayer.getSymbol(), index)) {
-        console.log("The winner is: " + activePlayer.getName());
-        activePlayer.increaseScore();
-        break;
-      }
-      if (!gameBoardObj.checkWin(gameBoardObj.getGameBoarderArr(),
-        activePlayer.getSymbol(), index) && i === 8) {
-        console.log("The game is a tie!");
-      }
+    gameBoardInDom.addEventListener("click", (e) => {
+      let index = Number(e.target.dataset.id);
 
-      switchUser();
-    }
+
+      if (gameBoardObj.isAvailable(index) === false) {
+        console.log("Cell does not available");
+      } else {
+        e.target.style.backgroundImage = "url(`./assets/images/${activePlayer.getSymbol()}.png`)";
+
+
+        e.target.style.backgroundImage = `url('./assets/images/${activePlayer.getSymbol()}.png')`;
+
+        gameBoardObj.chooseSquare(activePlayer.getSymbol(), index);
+
+        // Start check if we have a winner
+        if (gameBoardObj.checkWin(gameBoardObj.getGameBoarderArr(),
+          activePlayer.getSymbol(), index)) {
+          activePlayer.increaseScore();
+          gameBoardObj.gameStop();
+          document.querySelector("#player-" + activePlayer.getSymbol()).textContent =
+            activePlayer.getScore();
+        }
+        if (gameBoardObj.isFull === true &&
+          !gameBoardObj.checkWin(gameBoardObj.getGameBoarderArr(),
+            activePlayer.getSymbol(), index)) {
+          console.log("The game is a tie!");
+        }
+
+
+        switchUser();
+
+      }
+    })
+
   }
+
+  function reset() {
+    playerX.resetScore();
+    playerO.resetScore();
+    playerXScore.textContent = 0;
+    playerOScore.textContent = 0;
+    gameBoardObj.nextRound();
+  }
+
 
 }
 
-
-// game();
-
-
 /* Dialog Control and create new users */
-const dialogElem = document.getElementById("dialog");
-const showDialog = document.querySelector(".show");
-const formSubmit = document.querySelector("#confirm-btn");
-const cancelProcess = document.querySelector("#cancel");
-const form = document.getElementById("add-new-users-form");
-
-showDialog.addEventListener("click", () => {
-  dialogElem.showModal();
-  window.scrollTo(0, 0);
-  form.reset();
-});
+const gameControl = (function () {
+  const dialogElem = document.getElementById("dialog");
+  const showDialog = document.querySelector(".show");
+  const formSubmit = document.querySelector("#confirm-btn");
+  const cancelProcess = document.querySelector("#cancel");
+  const form = document.getElementById("add-new-users-form");
 
 
-formSubmit.addEventListener("click", (e) => {
-  e.preventDefault();
-
-  const username_1 = document.getElementById('username-1').value;
-  const playerName_1 = document.getElementById('player-1-img').value;
-  const symbol_1 = "x";
-
-  const username_2 = document.getElementById('username-2').value;
-  const playerName_2 = document.getElementById('player-2-img').value;
-  const symbol_2 = "x";
-
-  // Create Players obj
-
-  window.scrollTo(0, 0);
-  dialogElem.close();
-})
-
-//change Enter key on Keyboard behavior 
-const formInputs = document.querySelectorAll("#add-new-users-form input");
-
-formInputs.forEach((input, index) => {
-  input.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-
-      let next = formInputs[index + 1];
-      if (next) {
-        next.focus();
-      } else {
-       form.submit();
-      }
-    }
+  showDialog.addEventListener("click", () => {
+    dialogElem.showModal();
+    window.scrollTo(0, 0);
+    form.reset();
   });
-});
+
+
+  formSubmit.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    const username_1 = document.getElementById('username-1').value;
+    const playerName_1 = document.getElementById('player-1-img').value;
+    const symbol_1 = document.querySelector('input[name="user-symbol"]:checked').value;
+
+    const username_2 = document.getElementById('username-2').value;
+    const playerName_2 = document.getElementById('player-2-img').value;
+    const symbol_2 = symbol_1 == "x" ? "o":"x";
+
+    const playerX = player(username_1, symbol_1, playerName_1);
+    const playerO = player(username_2, symbol_2, playerName_2);
+
+    dialogElem.close();
+    game(playerX, playerO);
+    window.scrollTo(0, 0);
+    showDialog.style.visibility = "hidden";
+
+  })
+
+  //change Enter key on Keyboard behavior 
+  const formInputs = document.querySelectorAll("#add-new-users-form input");
+
+  formInputs.forEach((input, index) => {
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+
+        let next = formInputs[index + 1];
+        if (next) {
+          next.focus();
+        } else {
+          form.submit();
+        }
+      }
+    });
+  });
+})();
