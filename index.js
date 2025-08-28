@@ -38,7 +38,6 @@ const gameBoard = function () {
 
   const isAvailable = function (index) {
     if (gameBoardArr[index] === null) return true;
-
     return false;
   }
 
@@ -211,17 +210,12 @@ const game = function (playerX, playerO) {
   }
 
   function playRound() {
-
     gameBoardInDom.addEventListener("click", (e) => {
       let index = Number(e.target.dataset.id);
-
 
       if (gameBoardObj.isAvailable(index) === false) {
         console.log("Cell does not available");
       } else {
-        e.target.style.backgroundImage = "url(`./assets/images/${activePlayer.getSymbol()}.png`)";
-
-
         e.target.style.backgroundImage = `url('./assets/images/${activePlayer.getSymbol()}.png')`;
 
         gameBoardObj.chooseSquare(activePlayer.getSymbol(), index);
@@ -239,10 +233,7 @@ const game = function (playerX, playerO) {
             activePlayer.getSymbol(), index)) {
           console.log("The game is a tie!");
         }
-
-
         switchUser();
-
       }
     })
 
@@ -279,11 +270,11 @@ const gameControl = (function () {
     e.preventDefault();
 
     const username_1 = document.getElementById('username-1').value;
-    const playerName_1 = document.getElementById('player-1-img').value;
+    const playerName_1 = document.getElementById('player-1-img').value.toLowerCase();
     const symbol_1 = document.querySelector('input[name="user-symbol"]:checked').value;
 
     const username_2 = document.getElementById('username-2').value;
-    const playerName_2 = document.getElementById('player-2-img').value;
+    const playerName_2 = document.getElementById('player-2-img').value.toLowerCase();
     const symbol_2 = symbol_1 == "x" ? "o":"x";
 
     const playerX = player(username_1, symbol_1, playerName_1);
