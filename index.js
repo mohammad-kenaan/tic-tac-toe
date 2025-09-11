@@ -250,7 +250,7 @@ const game = function (playerX, playerO) {
 
 }
 
-/* Dialog Control and create new users */
+
 const gameControl = (function () {
   const dialogElem = document.getElementById("dialog");
   const showDialog = document.querySelector(".show");
@@ -279,6 +279,9 @@ const gameControl = (function () {
 
     const playerX = player(username_1, symbol_1, playerName_1);
     const playerO = player(username_2, symbol_2, playerName_2);
+
+    console.log(playerX.getSymbol());
+    console.log(playerO.getSymbol());
 
     dialogElem.close();
     game(playerX, playerO);
